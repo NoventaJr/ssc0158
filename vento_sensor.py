@@ -4,7 +4,7 @@ from random import uniform
 import time
 
 #Configurando e conectando
-mqtt_broker = 'mqtt.eclipseprojects.io'
+mqtt_broker = 'test.mosquitto.org'
 mqqt_client = mqtt.client('MQTTProducer')
 mqtt_client.connect(mqtt_broker)
 
