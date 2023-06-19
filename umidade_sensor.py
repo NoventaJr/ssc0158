@@ -8,9 +8,9 @@ mqtt_broker = 'test.mosquitto.org'
 mqtt_client = mqtt.Client('MQTTProducer')
 mqtt_client.connect(mqtt_broker)
 
-#Simulando publicações de humidade
+#Simulando publicações de umidade
 while True:
-    randNumber = uniform(20.0, 21.0)
-    mqtt_client.publish("Sensors", f"humidity:{randNumber}")
-    print('MQTT publicou ' + str(randNumber) + ' de humidade em Sensors.')
+    randNumber = uniform(80.0, 90.0)
+    mqtt_client.publish("Umidade", f"Umidade:{randNumber}")
+    print('MQTT publicou ' + str(randNumber) + ' em Umidade.')
     time.sleep(3)
