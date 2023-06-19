@@ -10,7 +10,7 @@ mqtt_client.connect(mqtt_broker)
 
 #Simulando publicações de temperatura
 while True:
-    randNumber = uniform(20.0, 21.0)
-    mqtt_client.publish("Sensors", f"temperature:{randNumber}")
-    print('MQTT publicou ' + str(randNumber) + ' de temperatura em Sensors.')
+    randNumber = uniform(30.0, 33.0)
+    mqtt_client.publish("Temperatura", f"temperature:{randNumber}")
+    print('MQTT publicou ' + str(randNumber) + ' em Temperatura.')
     time.sleep(3)
