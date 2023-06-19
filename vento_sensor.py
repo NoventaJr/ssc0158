@@ -10,7 +10,7 @@ mqtt_client.connect(mqtt_broker)
 
 #Simulando publicações de Vento
 while true:
-    randNumber = uniform(0.0, 20.0)
-    mqtt_client.publish("Vento", randNumber)
+    randNumber = uniform(0.0, 5.0)
+    mqtt_client.publish("Vento", f"Vento:{randNumber}")
     print('MQTT publicou' + str(randNumber) + ' em Vento.')
     time.sleep(3)
