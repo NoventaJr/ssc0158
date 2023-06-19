@@ -16,12 +16,13 @@ kafka_producer = kakfa_topic.get_sync_producer()
 def on_message(client, userdata, message):
     msg_payload = str(message.payload)
     print('Mensagem recebida de MQTT: ', msg_payload)
+    #verificar da onde vem a mensagem e colocar no banco de dados correspondente
     kafka_producer.produce(str(msg_payload).encode('ascii'))
     print('Kafka publicou ' + str(msg_payload) + ' em Sensors.')
 
 #Consumindo informações MQTT
 mqtt_client.loop_start()
-mqtt_client.subscribe('Sensors')
+mqtt_client.subscribe(['Temperatura', 'Vento', 'Umidade', 'Chuva'])
 mqtt_client.on_message = on_message
 time.sleep(500)
 mqtt_client.loop_stop()
