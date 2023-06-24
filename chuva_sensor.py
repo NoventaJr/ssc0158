@@ -5,7 +5,7 @@ import time
 
 # Configurando e conectando
 mqtt_broker = "test.mosquitto.org"
-mqqt_client = mqtt.client("MQTTProducer")
+mqtt_client = mqtt.client("MQTTProducer")
 mqtt_client.connect(mqtt_broker)
 
 # Simulando publicações de Chuva
