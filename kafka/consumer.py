@@ -14,5 +14,5 @@ for msg in consumer:
     # Create dictionary and ingest data into MongoDB
     try:
         print("Data recovered by kafka", msg)
-    except:
-        print("Could not insert into MongoDB")
+    except Exception as e:
+        print("error consuming", str(e))
