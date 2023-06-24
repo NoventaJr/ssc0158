@@ -7,7 +7,7 @@ rm xzf kafka_2.13-3.4.0.tgz
 sudo mv kafka_2.13-3.4.0 /usr/local/kafka 
 
 pip3 install paho-mqtt
-pip3 install pykafka
+pip3 install py-kafka
 pip3 install pymongo
 
 python3 ./kafka/create_kafka_topics.py
