@@ -31,16 +31,16 @@ def on_message(client, userdata, message):
     print("Received message from MQTT - Topic:", topic)
     print("Received message from MQTT - Payload:", payload)
 
-    if topic == "Temperatura":
+    if "Temperatura" in topic:
         kafka_temp_producer.produce(payload.encode("ascii"))
         print("Message published to Temperatura topic in Kafka.")
-    elif topic == "Vento":
+    elif "Vento" in topic:
         kafka_wind_producer.produce(payload.encode("ascii"))
         print("Message published to Vento topic in Kafka.")
-    elif topic == "Umidade":
+    elif "Umidade" in topic:
         kafka_hum_producer.produce(payload.encode("ascii"))
         print("Message published to Umidade topic in Kafka.")
-    elif topic == "Chuva":
+    elif "Chuva" in topic:
         kafka_rain_producer.produce(payload.encode("ascii"))
         print("Message published to Chuva topic in Kafka.")
 
@@ -48,10 +48,9 @@ def on_message(client, userdata, message):
 # Subscribing to MQTT topics
 mqtt_client.on_message = on_message
 
-topics = [("Temperatura", 0), ("Vento", 0), ("Umidade", 0), ("Chuva", 0)]
-
-for topic, qos in topics:
-    mqtt_client.subscribe(topic, qos=qos)
+mqtt_client.subscribe(
+    "+/+", qos=0
+)  # Single-level wildcard: "+/+" matches any single-level topic
 
 # Consuming MQTT messages
 mqtt_client.loop_start()
