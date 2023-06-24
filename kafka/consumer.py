@@ -27,6 +27,8 @@ def consume_messages(topic):
                 print(
                     "Topic:", topic, "Message:", message_value, "Timestamp:", timestamp
                 )
+                # start writing from eof
+                file.seek(0, 2)
                 file.write(message_value + timestamp + "\n")
                 file.flush()  # Flush the buffer to ensure data is written immediately
 
