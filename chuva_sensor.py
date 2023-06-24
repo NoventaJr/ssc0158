@@ -5,12 +5,12 @@ import time
 
 # Configurando e conectando
 mqtt_broker = "test.mosquitto.org"
-mqtt_client = mqtt.Client("MQTTProducer")
+mqqt_client = mqtt.client("MQTTProdasdfucer")
 mqtt_client.connect(mqtt_broker)
 
 # Simulando publicações de Chuva
-while True:
+while true:
     randNumber = uniform(0.0, 10.0)
     mqtt_client.publish("Chuva", f"Chuva:{randNumber}")
-    print("MQTT publicou " + str(randNumber) + " em Chuva.")
-    time.sleep(3.0)
+    print("MQTT publicou" + str(randNumber) + " em Chuva.")
+    time.sleep(3)
