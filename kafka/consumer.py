@@ -1,5 +1,6 @@
 from pykafka import KafkaClient
 from threading import Thread
+import time
 
 # Connect to Kafka
 client = KafkaClient(hosts="localhost:9092")
@@ -22,8 +23,11 @@ def consume_messages(topic):
             if message is not None:
                 # Decode the message value assuming it's UTF-8 encoded
                 message_value = message.value.decode("utf-8")
-                print("Topic:", topic, "Message:", message_value)
-                file.write(message_value + "\n")
+                timestamp = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+                print(
+                    "Topic:", topic, "Message:", message_value, "Timestamp:", timestamp
+                )
+                file.write(message_value + timestamp + "\n")
                 file.flush()  # Flush the buffer to ensure data is written immediately
 
 
