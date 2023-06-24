@@ -1,9 +1,26 @@
 sudo apt update
 sudo apt install default-jdk
 
-wget https://downloads.apache.org/kafka/3.4.0/kafka_2.13-3.4.0.tgz
-tar xzf kafka_2.13-3.4.0.tgz
-sudo mv kafka_2.13-3.4.0 /usr/local/kafka 
+#!/bin/bash
+
+# Update the following variables to match your desired Kafka version and installation directory
+KAFKA_HOME="/usr/local/kafka"
+KAFKA_VERSION="3.5.0"
+
+mkdir $KAFKA_HOME
+# Download Kafka
+wget https://downloads.apache.org/kafka/$KAFKA_VERSION/kafka_2.13-$KAFKA_VERSION.tgz
+tar -xzf kafka_2.13-$KAFKA_VERSION.tgz
+rm kafka_2.13-$KAFKA_VERSION.tgz
+mv kafka_2.13-$KAFKA_VERSION $KAFKA_HOME
 
 pip3 install paho-mqtt
 pip3 install pykafka
+pip3 install pymongo
+
+# Start ZooKeeper
+$KAFKA_HOME/bin/zookeeper-server-start.sh $KAFKA_HOME/config/zookeeper.properties &
+sleep 5
+
+# Start Kafka broker
+$KAFKA_HOME/bin/kafka-server-start.sh $KAFKA_HOME/config/server.properties
