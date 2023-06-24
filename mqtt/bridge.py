@@ -21,7 +21,7 @@ class MQTTBridge:
             payload = message.payload.decode("utf-8")
 
             print("Received MQTT message from topic:", mqtt_topic)
-            print("Publishing to Kafka topic:", kafka_topic)
+            print("Publishing to Kafka topic:", kafka_topic.name)
 
             kafka_producer.produce(payload.encode("ascii"))
 
