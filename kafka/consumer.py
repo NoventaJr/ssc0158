@@ -1,18 +1,22 @@
 from pykafka import KafkaClient
 
-import json
+# Connect to Kafka
+client = KafkaClient(hosts="localhost:9092")
 
-# start a consumer on the topics: Temperatura Vento Umidade Chuva
-consumer = (
-    KafkaClient(hosts="localhost:9092")
-    .topics[b"Temperatura", b"Vento", b"Umidade", b"Chuva"]
-    .get_simple_consumer()
-)
+# Choose the topic to consume from
+topic_name = "your_topic_name"
 
-# Parse received data from Kafka
-for msg in consumer:
-    # Create dictionary and ingest data into MongoDB
-    try:
-        print("Data recovered by kafka", msg)
-    except Exception as e:
-        print("error consuming", str(e))
+# Create a consumer
+consumer = client.topics[topic_name.encode()].get_simple_consumer()
+
+# Define the output file path
+output_file = "output.txt"
+
+# Consume messages and write them to the output file
+with open(output_file, "w") as file:
+    for message in consumer:
+        if message is not None:
+            # Decode the message value assuming it's UTF-8 encoded
+            message_value = message.value.decode("utf-8")
+            file.write(message_value + "\n")
+            file.flush()  # Flush the buffer to ensure data is written immediately
