@@ -1,10 +1,10 @@
-from pykafka import pykafka
+from pykafka import KafkaClient
 
 import json
 
 # start a consumer on the topics: Temperatura Vento Umidade Chuva
 consumer = (
-    pykafka.KafkaClient(hosts="localhost:9092")
+    KafkaClient(hosts="localhost:9092")
     .topics[b"Temperatura", b"Vento", b"Umidade", b"Chuva"]
     .get_simple_consumer()
 )
