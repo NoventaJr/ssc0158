@@ -9,7 +9,7 @@ mqtt_client = mqtt.Client("MQTTProdasdfucer")
 mqtt_client.connect(mqtt_broker)
 
 # Simulando publicações de Chuva
-while true:
+while True:
     randNumber = uniform(0.0, 10.0)
     mqtt_client.publish("Chuva", f"Chuva:{randNumber}")
     print("MQTT publicou" + str(randNumber) + " em Chuva.")
