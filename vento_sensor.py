@@ -12,5 +12,5 @@ mqtt_client.connect(mqtt_broker)
 while true:
     randNumber = uniform(0.0, 5.0)
     mqtt_client.publish("Vento", f"Vento:{randNumber}")
-    print("MQTT publicou" + str(randNumber) + " em Vento.")
+    print("MQTT publicou " + str(randNumber) + " em Vento.")
     time.sleep(3)
