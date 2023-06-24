@@ -28,9 +28,6 @@ def on_message(client, userdata, message):
     topic = message.topic
     payload = message.payload.decode("utf-8")
 
-    print("Mensagem recebida de MQTT - Tópico:", topic)
-    print("Mensagem recebida de MQTT - Payload:", payload)
-
     if topic == "Temperatura":
         kafka_temp_producer.produce(payload.encode("ascii"))
         print("Mensagem publicada em Temperatura no Kafka.")
