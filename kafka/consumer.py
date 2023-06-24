@@ -18,5 +18,6 @@ with open(output_file, "w") as file:
         if message is not None:
             # Decode the message value assuming it's UTF-8 encoded
             message_value = message.value.decode("utf-8")
+            print(message_value, "\n")
             file.write(message_value + "\n")
             file.flush()  # Flush the buffer to ensure data is written immediately
