@@ -1,4 +1,5 @@
 from pykafka import KafkaClient
+from threading import Thread
 
 # Connect to Kafka
 client = KafkaClient(hosts="localhost:9092")
@@ -6,21 +7,33 @@ client = KafkaClient(hosts="localhost:9092")
 # Define the list of topics to consume from
 topics = ["Chuva", "Umidade", "Vento", "Temperatura"]
 
-# Create a consumer
-consumer = client.topics[[topic.encode() for topic in topics]].get_simple_consumer(
-    consumer_group=b"your_consumer_group"
-)
-
-# Define the output file paths
+# Define the output file path
 output_files = {topic: topic + ".txt" for topic in topics}
 
-# Consume messages and write them to the output files
-for message in consumer:
-    if message is not None:
-        topic = message.topic.decode()
-        file = open(output_files[topic], "a")
-        # Decode the message value assuming it's UTF-8 encoded
-        message_value = message.value.decode("utf-8")
-        print("Topic:", topic, "Message:", message_value)
-        file.write(message_value + "\n")
-        file.flush()  # Flush the buffer to ensure data is written immediately
+
+# Consumer function
+def consume_messages(topic):
+    # Create a consumer for the topic
+    consumer = client.topics[topic.encode()].get_simple_consumer()
+
+    # Consume messages and write them to the output file
+    with open(output_files[topic], "w") as file:
+        for message in consumer:
+            if message is not None:
+                # Decode the message value assuming it's UTF-8 encoded
+                message_value = message.value.decode("utf-8")
+                print("Topic:", topic, "Message:", message_value)
+                file.write(message_value + "\n")
+                file.flush()  # Flush the buffer to ensure data is written immediately
+
+
+# Create and start a consumer thread for each topic
+consumer_threads = []
+for topic in topics:
+    thread = Thread(target=consume_messages, args=(topic,))
+    thread.start()
+    consumer_threads.append(thread)
+
+# Wait for all consumer threads to finish
+for thread in consumer_threads:
+    thread.join()
