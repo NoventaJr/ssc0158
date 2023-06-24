@@ -13,15 +13,13 @@ tar -xzf kafka_$KAFKA_VERSION.tgz
 rm kafka_$KAFKA_VERSION.tgz
 mv kafka_$KAFKA_VERSION $KAFKA_HOME
 
+pip3 install paho-mqtt
+pip3 install pykafka
+pip3 install pymongo
+
 # Start ZooKeeper
 $KAFKA_HOME/bin/zookeeper-server-start.sh $KAFKA_HOME/config/zookeeper.properties &
 sleep 5
 
 # Start Kafka broker
 $KAFKA_HOME/bin/kafka-server-start.sh $KAFKA_HOME/config/server.properties
-
-pip3 install paho-mqtt
-pip3 install pykafka
-pip3 install pymongo
-
-python3 ./kafka/create_kafka_topics.py
