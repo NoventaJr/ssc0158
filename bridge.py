@@ -3,7 +3,6 @@ from pykafka import KafkaClient
 import time
 
 # Configurando e conectando MQTT
-
 mqtt_broker = "test.mosquitto.org"
 mqtt_client = mqtt.Client("MQTTBridge")
 mqtt_client.connect(mqtt_broker)
@@ -20,25 +19,30 @@ kafka_rain_topic = kafka_client.topics[b"Chuva"]
 # Producers
 kafka_temp_producer = kafka_temp_topic.get_sync_producer()
 kafka_wind_producer = kafka_wind_topic.get_sync_producer()
-kafka_hum_topic = kafka_hum_topic.get_sync_producer()
-kafka_rain_topic = kafka_rain_topic.get_sync_producer()
+kafka_hum_producer = kafka_hum_topic.get_sync_producer()
+kafka_rain_producer = kafka_rain_topic.get_sync_producer()
 
 
 # Função para mensagens
 def on_message(client, userdata, message):
-    msg_payload = str(message.payload)
-    print("Mensagem raw recebida de MQTT:", message)
-    print("Mensagem recebida de MQTT:", msg_payload)
+    topic = message.topic
+    payload = message.payload.decode("utf-8")
 
-    kafka_temp_producer.produce(msg_payload.encode("ascii"))
-    kafka_wind_producer.produce(msg_payload.encode("ascii"))
-    kafka_hum_topic.produce(msg_payload.encode("ascii"))
-    kafka_rain_topic.produce(msg_payload.encode("ascii"))
+    print("Mensagem recebida de MQTT - Tópico:", topic)
+    print("Mensagem recebida de MQTT - Payload:", payload)
 
-    print("Kafka publicou", msg_payload, "em Sensors.")
-    print("Kafka publicou", msg_payload, "em Sensors.")
-    print("Kafka publicou", msg_payload, "em Sensors.")
-    print("Kafka publicou", msg_payload, "em Sensors.")
+    if topic == "Temperatura":
+        kafka_temp_producer.produce(payload.encode("ascii"))
+        print("Mensagem publicada em Temperatura no Kafka.")
+    elif topic == "Vento":
+        kafka_wind_producer.produce(payload.encode("ascii"))
+        print("Mensagem publicada em Vento no Kafka.")
+    elif topic == "Umidade":
+        kafka_hum_producer.produce(payload.encode("ascii"))
+        print("Mensagem publicada em Umidade no Kafka.")
+    elif topic == "Chuva":
+        kafka_rain_producer.produce(payload.encode("ascii"))
+        print("Mensagem publicada em Chuva no Kafka.")
 
 
 # Consumindo informações MQTT

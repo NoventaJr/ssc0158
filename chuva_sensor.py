@@ -13,4 +13,4 @@ while True:
     randNumber = uniform(0.0, 10.0)
     mqtt_client.publish("Chuva", f"Chuva:{randNumber}")
     print("MQTT publicou" + str(randNumber) + " em Chuva.")
-    time.sleep(3)
+    time.sleep(1)
