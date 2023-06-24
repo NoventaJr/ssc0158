@@ -4,7 +4,7 @@ from pykafka import KafkaClient
 client = KafkaClient(hosts="localhost:9092")
 
 # Choose the topic to consume from
-topic_name = "your_topic_name"
+topic_name = "Umidade"
 
 # Create a consumer
 consumer = client.topics[topic_name.encode()].get_simple_consumer()
