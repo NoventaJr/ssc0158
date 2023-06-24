@@ -49,7 +49,4 @@ topics = [("Temperatura", 0), ("Vento", 0), ("Umidade", 0), ("Chuva", 0)]
 
 mqtt_client.subscribe(topics)
 mqtt_client.on_message = on_message
-
-time.sleep(500)
-
 mqtt_client.loop_stop()
