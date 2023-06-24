@@ -17,7 +17,7 @@ output_file = "medidas.txt"
 # Consume messages and write them to the output file
 for message in consumer:
     if message is not None:
-        file = open(message.topic, "a")
+        file = open(message.topic + ".txt", "a")
         # Decode the message value assuming it's UTF-8 encoded
         message_value = message.value.decode("utf-8")
         print(message_value, "\n")
