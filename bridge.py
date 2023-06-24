@@ -27,7 +27,6 @@ kafka_rain_producer = kafka_rain_topic.get_sync_producer()
 def on_message(client, userdata, message):
     topic = message.topic
     payload = message.payload.decode("utf-8")
-    print(message.as_json())
 
     print("Received message from MQTT - Topic:", topic)
     print("Received message from MQTT - Payload:", payload)
