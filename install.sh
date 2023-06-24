@@ -7,6 +7,7 @@ sudo apt install default-jdk
 KAFKA_HOME="/usr/local/kafka"
 KAFKA_VERSION="3.5.0"
 
+mkdir $KAFKA_HOME
 # Download Kafka
 wget https://downloads.apache.org/kafka/$KAFKA_VERSION/kafka_$KAFKA_VERSION.tgz
 tar -xzf kafka_$KAFKA_VERSION.tgz
