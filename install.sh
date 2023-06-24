@@ -9,10 +9,10 @@ KAFKA_VERSION="3.5.0"
 
 mkdir $KAFKA_HOME
 # Download Kafka
-wget https://downloads.apache.org/kafka/$KAFKA_VERSION/kafka_$KAFKA_VERSION.tgz
-tar -xzf kafka_$KAFKA_VERSION.tgz
-rm kafka_$KAFKA_VERSION.tgz
-mv kafka_$KAFKA_VERSION $KAFKA_HOME
+wget https://downloads.apache.org/kafka/$KAFKA_VERSION/kafka_2.13-$KAFKA_VERSION.tgz
+tar -xzf kafka_2.13-$KAFKA_VERSION.tgz
+rm kafka_2.13-$KAFKA_VERSION.tgz
+mv kafka_2.13-$KAFKA_VERSION $KAFKA_HOME
 
 pip3 install paho-mqtt
 pip3 install pykafka
